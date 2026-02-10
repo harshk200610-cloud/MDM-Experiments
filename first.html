@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ModernAI - Intelligent Automation Solutions</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-blue: #2a6eff;
+            --secondary-blue: #1a56db;
+            --dark-blue: #0f2a5c;
+            --light-blue: #e8f1ff;
+            --gray-bg: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --white: #ffffff;
+            --card-bg: #ffffff;
+            --body-bg: #ffffff;
+            --footer-bg: #0f2a5c;
+            --border-color: #e2e8f0;
+            --shadow-color: rgba(0, 0, 0, 0.08);
+        }
+        
+        .dark-mode {
+            --primary-blue: #3d8bff;
+            --secondary-blue: #2a6eff;
+            --dark-blue: #1e293b;
+            --light-blue: #1e293b;
+            --gray-bg: #0f172a;
+            --text-dark: #f1f5f9;
+            --text-light: #94a3b8;
+            --white: #0f172a;
+            --card-bg: #1e293b;
+            --body-bg: #0f172a;
+            --footer-bg: #0f172a;
+            --border-color: #334155;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+        
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: var(--body-bg);
+        }
+        
+        h1, h2, h3, h4, h5 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
+        
+        /* Dark Mode Toggle */
+        .dark-mode-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background-color: var(--primary-blue);
+            color: white;
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(42, 110, 255, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .dark-mode-toggle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 8px 20px rgba(42, 110, 255, 0.4);
+        }
+        
+        .dark-mode-toggle i {
+            font-size: 24px;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background-color: var(--white) !important;
+            box-shadow: 0 2px 10px var(--shadow-color);
+        }
+        
+        .dark-mode .navbar {
+            background-color: var(--card-bg) !important;
+        }
+        
+        .navbar-brand {
+            font-weight: 700;
+            font-size: 1.8rem;
+            color: var(--primary-blue) !important;
+        }
+        
+        .navbar-brand span {
+            color: var(--text-dark);
+        }
+        
+        .nav-link {
+            font-weight: 500;
+            margin: 0 8px;
+            transition: color 0.3s;
+            color: var(--text-dark) !important;
+        }
+        
+        .nav-link:hover {
+            color: var(--primary-blue) !important;
+        }
+        
+        /* Hero Section */
+        .hero-section {
+            background: linear-gradient(135deg, var(--light-blue) 0%, var(--body-bg) 100%);
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: rgba(42, 110, 255, 0.05);
+            top: -200px;
+            right: -100px;
+        }
+        
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: rgba(42, 110, 255, 0.05);
+            bottom: -150px;
+            left: -100px;
+        }
+        
+        .hero-title {
+            font-size: 3.2rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+        
+        .hero-title span {
+            color: var(--primary-blue);
+        }
+        
+        .hero-subtitle {
+            font-size: 1.2rem;
+            color: var(--text-light);
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-blue);
+            border-color: var(--primary-blue);
+            padding: 12px 30px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--secondary-blue);
+            border-color: var(--secondary-blue);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(42, 110, 255, 0.2);
+        }
+        
+        .btn-outline-primary {
+            color: var(--primary-blue);
+            border-color: var(--primary-blue);
+            padding: 12px 30px;
+            font-weight: 500;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        
+        .btn-outline-primary:hover {
+            background-color: var(--primary-blue);
+            color: white;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(42, 110, 255, 0.2);
+        }
+        
+        .hero-image {
+            max-width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+        
+        /* Section Common */
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+        
+        .section-title h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .section-title h2::after {
+            content: '';
+            position: absolute;
+            width: 70px;
+            height: 4px;
+            background: var(--primary-blue);
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+        
+        .section-title p {
+            color: var(--text-light);
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Features Section */
+        .features-section {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .dark-mode .features-section {
+            background-color: var(--body-bg);
+        }
+        
+        .feature-card {
+            padding: 30px;
+            border-radius: 12px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            border: 1px solid var(--border-color);
+            background-color: var(--card-bg);
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px var(--shadow-color);
+            border-color: var(--primary-blue);
+        }
+        
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            background: rgba(42, 110, 255, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 25px;
+            color: var(--primary-blue);
+            font-size: 28px;
+        }
+        
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .feature-card p {
+            color: var(--text-light);
+        }
+        
+        /* Pricing Section */
+        .pricing-section {
+            padding: 100px 0;
+            background-color: var(--gray-bg);
+        }
+        
+        .dark-mode .pricing-section {
+            background-color: var(--dark-blue);
+        }
+        
+        .pricing-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: transform 0.3s;
+            border: 1px solid var(--border-color);
+            height: 100%;
+        }
+        
+        .pricing-card.popular {
+            transform: scale(1.05);
+            border: 2px solid var(--primary-blue);
+            box-shadow: 0 20px 40px rgba(42, 110, 255, 0.1);
+            position: relative;
+        }
+        
+        .pricing-card.popular .card-header {
+            background: var(--primary-blue);
+            color: white;
+        }
+        
+        .pricing-card.popular .price {
+            color: var(--primary-blue);
+        }
+        
+        .pricing-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px var(--shadow-color);
+        }
+        
+        .pricing-card .card-header {
+            padding: 30px 20px;
+            text-align: center;
+            background: var(--gray-bg);
+            border-bottom: 1px solid var(--border-color);
+        }
+        
+        .dark-mode .pricing-card .card-header {
+            background: rgba(42, 110, 255, 0.1);
+        }
+        
+        .pricing-card .card-body {
+            padding: 40px 30px;
+        }
+        
+        .price {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--text-dark);
+            margin: 20px 0;
+        }
+        
+        .price span {
+            font-size: 1rem;
+            color: var(--text-light);
+            font-weight: 400;
+        }
+        
+        .pricing-features {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 30px;
+        }
+        
+        .pricing-features li {
+            padding: 8px 0;
+            color: var(--text-dark);
+        }
+        
+        .pricing-features li i {
+            color: #10b981;
+            margin-right: 10px;
+        }
+        
+        .pricing-features li .fa-times {
+            color: var(--text-light);
+        }
+        
+        /* Contact Section */
+        .contact-section {
+            padding: 100px 0;
+            background-color: var(--white);
+        }
+        
+        .dark-mode .contact-section {
+            background-color: var(--body-bg);
+        }
+        
+        .contact-form {
+            background: var(--gray-bg);
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px var(--shadow-color);
+        }
+        
+        .dark-mode .contact-form {
+            background: var(--card-bg);
+        }
+        
+        .form-control {
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 20px;
+            background-color: var(--card-bg);
+            color: var(--text-dark);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-blue);
+            box-shadow: 0 0 0 3px rgba(42, 110, 255, 0.1);
+        }
+        
+        .form-label {
+            color: var(--text-dark);
+        }
+        
+        /* Footer */
+        .footer {
+            background-color: var(--footer-bg);
+            color: white;
+            padding: 70px 0 30px;
+        }
+        
+        .dark-mode .footer {
+            background-color: var(--dark-blue);
+        }
+        
+        .footer h5 {
+            margin-bottom: 25px;
+            font-weight: 600;
+        }
+        
+        .footer p {
+            color: #cbd5e1;
+            margin-bottom: 20px;
+        }
+        
+        .footer-links {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+        
+        .footer-links a {
+            color: #cbd5e1;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .social-icons a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 10px;
+            color: white;
+            transition: background 0.3s;
+        }
+        
+        .social-icons a:hover {
+            background: var(--primary-blue);
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .hero-title {
+                font-size: 2.8rem;
+            }
+            
+            .pricing-card.popular {
+                transform: scale(1);
+                margin: 20px 0;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.3rem;
+            }
+            
+            .hero-section {
+                padding: 70px 0;
+            }
+            
+            .features-section,
+            .pricing-section,
+            .contact-section {
+                padding: 70px 0;
+            }
+            
+            .section-title h2 {
+                font-size: 2rem;
+            }
+            
+            .contact-form {
+                padding: 30px;
+            }
+            
+            .dark-mode-toggle {
+                bottom: 20px;
+                right: 20px;
+                width: 50px;
+                height: 50px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            
+            .btn-primary, .btn-outline-primary {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+            
+            .feature-card {
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light sticky-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="fas fa-brain me-2"></i>Modern<span>AI</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#features">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#pricing">Pricing</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#contact">Contact</a>
+                    </li>
+                    <li class="nav-item ms-2">
+                        <a class="btn btn-outline-primary" href="#pricing">Get Started</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" id="home">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="hero-title">Transform Your Business with <span>AI-Powered</span> Automation</h1>
+                    <p class="hero-subtitle">ModernAI helps businesses streamline operations, reduce costs, and boost productivity with our cutting-edge artificial intelligence solutions. No technical expertise required.</p>
+                    <div class="d-flex flex-wrap gap-3">
+                        <a href="#pricing" class="btn btn-primary btn-lg">Get Started Free</a>
+                        <a href="#features" class="btn btn-outline-primary btn-lg">Learn More</a>
+                    </div>
+                    <div class="mt-5 d-flex align-items-center">
+                        <div class="d-flex me-4">
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star text-warning"></i>
+                            <i class="fas fa-star-half-alt text-warning"></i>
+                        </div>
+                        <span class="text-muted">Rated 4.8/5 by 2,500+ customers</span>
+                    </div>
+                </div>
+                <div class="col-lg-6 mt-5 mt-lg-0">
+                    <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="AI Dashboard" class="hero-image">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section" id="features">
+        <div class="container">
+            <div class="section-title">
+                <h2>Powerful AI Features</h2>
+                <p>Our platform comes packed with features designed to automate and optimize your business processes</p>
+            </div>
+            
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <h3>Smart Automation</h3>
+                        <p>Automate repetitive tasks with intelligent workflows that learn and improve over time, saving you hundreds of hours monthly.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <h3>Predictive Analytics</h3>
+                        <p>Get actionable insights with advanced predictive models that forecast trends and identify opportunities before your competition.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-comments"></i>
+                        </div>
+                        <h3>AI Chat Assistants</h3>
+                        <p>Deploy intelligent chatbots that handle customer inquiries 24/7, reducing response time and improving customer satisfaction.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Fraud Detection</h3>
+                        <p>Protect your business with AI-powered security that detects anomalies and potential threats in real-time.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3>Process Optimization</h3>
+                        <p>Our AI analyzes your business processes and suggests optimizations to improve efficiency and reduce costs.</p>
+                    </div>
+                </div>
+                
+                <div class="col-md-6 col-lg-4">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3>Data Integration</h3>
+                        <p>Connect all your data sources seamlessly. Our platform works with over 100+ popular business applications.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section class="pricing-section" id="pricing">
+        <div class="container">
+            <div class="section-title">
+                <h2>Simple, Transparent Pricing</h2>
+                <p>Choose the plan that fits your needs. All plans include a 14-day free trial with full feature access.</p>
+            </div>
+            
+            <div class="row g-4 justify-content-center">
+                <!-- Starter Plan -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card">
+                        <div class="card-header">
+                            <h4>Starter</h4>
+                            <p>For small businesses getting started with AI</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="price">₹999<span>/month</span></div>
+                            <ul class="pricing-features">
+                                <li><i class="fas fa-check"></i> Up to 5,000 AI actions/month</li>
+                                <li><i class="fas fa-check"></i> Basic automation workflows</li>
+                                <li><i class="fas fa-check"></i> Standard analytics dashboard</li>
+                                <li><i class="fas fa-check"></i> Email support</li>
+                                <li><i class="fas fa-times"></i> No predictive analytics</li>
+                                <li><i class="fas fa-times"></i> No dedicated AI assistant</li>
+                            </ul>
+                            <a href="#contact" class="btn btn-outline-primary w-100">Start Free Trial</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Professional Plan (Most Popular) -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card popular">
+                        <div class="card-header">
+                            <h4>Professional</h4>
+                            <p>Most popular for growing businesses</p>
+                            <span class="badge bg-light text-primary mt-2">Most Popular</span>
+                        </div>
+                        <div class="card-body">
+                            <div class="price">₹2800<span>/month</span></div>
+                            <ul class="pricing-features">
+                                <li><i class="fas fa-check"></i> Up to 50,000 AI actions/month</li>
+                                <li><i class="fas fa-check"></i> Advanced automation workflows</li>
+                                <li><i class="fas fa-check"></i> Predictive analytics included</li>
+                                <li><i class="fas fa-check"></i> Priority email & chat support</li>
+                                <li><i class="fas fa-check"></i> Custom AI assistant</li>
+                                <li><i class="fas fa-check"></i> Fraud detection system</li>
+                            </ul>
+                            <a href="#contact" class="btn btn-primary w-100">Start Free Trial</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Enterprise Plan -->
+                <div class="col-lg-4 col-md-6">
+                    <div class="pricing-card">
+                        <div class="card-header">
+                            <h4>Enterprise</h4>
+                            <p>For large organizations with custom needs</p>
+                        </div>
+                        <div class="card-body">
+                            <div class="price">Custom</div>
+                            <ul class="pricing-features">
+                                <li><i class="fas fa-check"></i> Unlimited AI actions</li>
+                                <li><i class="fas fa-check"></i> Fully customizable workflows</li>
+                                <li><i class="fas fa-check"></i> Advanced predictive analytics</li>
+                                <li><i class="fas fa-check"></i> 24/7 phone & dedicated support</li>
+                                <li><i class="fas fa-check"></i> Multiple AI assistants</li>
+                                <li><i class="fas fa-check"></i> Custom integrations & API access</li>
+                            </ul>
+                            <a href="#contact" class="btn btn-outline-primary w-100">Contact Sales</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-title">
+                <h2>Get In Touch</h2>
+                <p>Ready to transform your business with AI? Contact us today or start your free trial.</p>
+            </div>
+            
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="contact-form">
+                        <form id="contactForm">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="firstName" class="form-label">First Name</label>
+                                        <input type="text" class="form-control" id="firstName" placeholder="Raj" required>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="lastName" class="form-label">Last Name</label>
+                                        <input type="text" class="form-control" id="lastName" placeholder="Sharma" required>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="email" placeholder="raj@example.com" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="company" class="form-label">Company</label>
+                                <input type="text" class="form-control" id="company" placeholder="Your Company Name">
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="plan" class="form-label">Interested Plan</label>
+                                <select class="form-select" id="plan">
+                                    <option value="starter">Starter Plan</option>
+                                    <option value="professional">Professional Plan</option>
+                                    <option value="enterprise">Enterprise Plan</option>
+                                    <option value="notsure">Not Sure Yet</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="message" class="form-label">Message</label>
+                                <textarea class="form-control" id="message" rows="5" placeholder="Tell us about your business needs..."></textarea>
+                            </div>
+                            
+                            <div class="d-grid">
+                                <button type="submit" class="btn btn-primary btn-lg">Send Message</button>
+                            </div>
+                            <p class="text-muted text-center mt-3">We'll get back to you within 24 hours</p>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-5 mb-lg-0">
+                    <h5 class="mb-4"><i class="fas fa-brain me-2"></i>ModernAI</h5>
+                    <p>Intelligent automation solutions for businesses of all sizes. Transform your operations with cutting-edge AI technology.</p>
+                    <div class="social-icons">
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+                    <h5 class="mb-4">Product</h5>
+                    <ul class="footer-links">
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="#pricing">Pricing</a></li>
+                        <li><a href="#contact">API</a></li>
+                        <li><a href="#contact">Documentation</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-2 col-md-6 mb-5 mb-lg-0">
+                    <h5 class="mb-4">Company</h5>
+                    <ul class="footer-links">
+                        <li><a href="#home">About</a></li>
+                        <li><a href="#contact">Careers</a></li>
+                        <li><a href="#contact">Blog</a></li>
+                        <li><a href="#contact">Press</a></li>
+                    </ul>
+                </div>
+                
+                <div class="col-lg-4 col-md-12">
+                    <h5 class="mb-4">Contact Info</h5>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt me-2"></i> 12 ft Road, Fort, Mumbai </li>
+                        <li><i class="fas fa-phone me-2"></i> +91 8000755781</li>
+                        <li><i class="fas fa-envelope me-2"></i> modernai@21gmail.com </li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="copyright">
+                <p>&copy; 2023 ModernAI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Dark Mode Toggle Button -->
+    <button class="dark-mode-toggle" id="darkModeToggle" title="Toggle Dark Mode">
+        <i class="fas fa-moon"></i>
+    </button>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Dark Mode Toggle Functionality
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const body = document.body;
+        const icon = darkModeToggle.querySelector('i');
+        
+        // Check for saved theme preference or default to light
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        
+        // Apply the saved theme on page load
+        if (currentTheme === 'dark') {
+            body.classList.add('dark-mode');
+            icon.classList.remove('fa-moon');
+            icon.classList.add('fa-sun');
+        }
+        
+        // Toggle dark mode when button is clicked
+        darkModeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            
+            // Update icon based on current mode
+            if (body.classList.contains('dark-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'dark');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'light');
+            }
+        });
+        
+        // Form submission handling
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form values
+            const firstName = document.getElementById('firstName').value;
+            const email = document.getElementById('email').value;
+            const plan = document.getElementById('plan').value;
+            
+            // Show a simple alert (in a real app, this would submit to a server)
+            alert(`Thank you ${firstName}! We've received your request for the ${plan} plan. We'll contact you at ${email} shortly.`);
+            
+            // Reset form
+            document.getElementById('contactForm').reset();
+        });
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if(targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if(targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
